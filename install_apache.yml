@@ -5,36 +5,22 @@
   
   tasks: 
 
-  - name: update repository index
+  - name: install apache and php for Ubuntu servers
     ansible.builtin.apt: 
+      name: 
+        - apache2
+        - libapache2-mod-php
+      state: latest
       update_cache: yes
     when: ansible_distribution == "Ubuntu"
 
-  - name: install apache2 package
-    ansible.builtin.apt: 
-      name: apache2
+  - name: install apache and php for CentOS servers
+    ansible.builtin.dnf: 
+      name: 
+        - httpd
+        - php
       state: latest
-    when: ansible_distribution == "Ubuntu"
-
-  - name: add php support for apache
-    ansible.builtin.apt: 
-      name: libapache2-mod-php
-      state: latest
-    when: ansible_distribution == "Ubuntu"
+      update_cache: yes
+    when: ansible_distribution == "CentOS"
     
-  - name: update repository index
-    ansible.builtin.dnf: 
-      update_cache: yes
-    when: ansible_distribution == "CentOS"
-
-  - name: install apache2 package
-    ansible.builtin.dnf: 
-      name: httpd
-      state: latest
-    when: ansible_distribution == "CentOS"
-
-  - name: add php support for apache
-    ansible.builtin.dnf: 
-      name: php
-      state: latest
-    when: ansible_distribution == "CentOS"
+  

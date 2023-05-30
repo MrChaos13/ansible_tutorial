@@ -1,1 +1,6 @@
+[web_servers]
 localhost
+
+[db_servers]
+
+[file_servers]
